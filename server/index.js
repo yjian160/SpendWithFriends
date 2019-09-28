@@ -3,7 +3,7 @@ const app = express();
 const port = 3000;
 const db = require('../database/dbHelper')
 
-app.use(express.bodyParser());
+app.use(express.json());
 
 app.post('/createCircle', (req, res) => {
   var newCircle = req.body;
