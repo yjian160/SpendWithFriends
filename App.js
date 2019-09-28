@@ -1,0 +1,80 @@
+import React from 'react';
+import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import RN from 'react-native';
+
+export default class App extends React.Component {
+
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <View style={{flexDirection: 'row' }}>
+          <View>
+            <Text>
+              Group:{'   '}
+            </Text>
+          </View>
+          <View style={{alignSelf: 'center'}}>
+            <TextInput 
+              style={{ borderWidth: 0.5, borderColor: 'black', padding: 10}}
+              placeholder="Type here to translate!"
+            />
+          </View>
+          <View>
+            <Text style={{color: 'white'}}>
+              Group:{'   '}
+            </Text>
+          </View>
+        </View>
+        <View style={{flexDirection: 'row', margin: 10}}>
+          <View style={{margin: 5}}>
+            <Button
+              onPress={() => {
+                alert('You tapped the button!');
+              }}
+              title="Create"
+            />
+          </View>
+          <View style={{margin: 5}}>
+            <Button
+              style={{margin: 10}}
+              onPress={() => {
+                alert('You tapped the button!');
+              }}
+              title="Join"
+            />
+          </View>
+        </View>
+      </View>
+    );
+  }
+}
+
+// export default function App() {
+//   return (
+//     <View style={styles.container}>
+//       <TextInput 
+//         style={{borderWidth: 0.5, borderColor: 'black', padding: 10}}
+//         placeholder="Type here to translate!"
+//       />
+//       <Button
+//         onPress={() => {
+//           alert('You tapped the button!');
+//         }}
+//         title="Press Me"
+//       />
+//     </View>
+//   );
+// }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
