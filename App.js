@@ -1,11 +1,16 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 import RN from 'react-native';
+import Axios from 'axios';
 
 export default class App extends React.Component {
 
   constructor(props) {
     super(props);
+  }
+
+  createGroup() {
+    Axios.post('http://localhost:3000/createGroup')
   }
 
   render() {
@@ -33,7 +38,7 @@ export default class App extends React.Component {
           <View style={{margin: 5}}>
             <Button
               onPress={() => {
-                alert('You tapped the button!');
+                this.createGroup();
               }}
               title="Create"
             />
