@@ -7,10 +7,22 @@ export default class App extends React.Component {
 
   constructor(props) {
     super(props);
+
+    this.state = {
+      groupName: '',
+    }
+  }
+
+  updateGroup(e) {
+    this.setState({
+      groupName: e
+    })
   }
 
   createGroup() {
-    Axios.post('http://ec2-13-57-24-238.us-west-1.compute.amazonaws.com:3000/createCircle')
+    Axios.post('http://ec2-13-57-24-238.us-west-1.compute.amazonaws.com:3000/joinCircle', {
+      test: 'aa'
+    })
   }
 
   render() {
@@ -25,6 +37,7 @@ export default class App extends React.Component {
           <View style={{alignSelf: 'center'}}>
             <TextInput 
               style={{ borderWidth: 0.5, borderColor: 'black', padding: 10}}
+              onChangeText={e=>this.updateGroup(e)}
               placeholder="Type here to translate!"
             />
           </View>

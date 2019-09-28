@@ -5,7 +5,7 @@ const db = require('../database/dbHelper')
 
 app.use(express.json());
 
-app.post('/createCircle', (req, res) => {
+app.post('/joinCircle', (req, res) => {
   var newCircle = req.body;
   db.joinCircle(newCircle.name)
     .then(data => {

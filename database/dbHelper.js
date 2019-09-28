@@ -57,37 +57,6 @@ var getTransactionsByCircleId = function(circleId) {
   knex()
 };
 
-joinCircle('TESTCIRCLE')
-  .then(data => {
-    console.log('joinCircle:',data);
-    return createPerson('testUser2')
-      .then((data) => {
-          console.log('createPerson1:',data);
-        return createPerson('testUser')
-          .then(data => {
-            console.log('createPerson2:',data);
-            return addPersonToCircle('testUser2', 'TESTCIRCLE')
-            .then(() => {
-              return addPersonToCircle('testUser', 'TESTCIRCLE')
-              .then(() => {
-                return getPersonsByCircle('TESTCIRCLE')
-                  .then(data => {
-                    console.log('getPersonsByCircle:', data);
-                  })
-              })
-            })
-          })
-      })
-  })
-// createPerson('testUser');
-// createTransaction({
-//   name: 'testTransaction',
-//   description: 'testDescription',
-//   total_amount: 10.34,
-//   payer_id: 1,
-//   circle_id: 1,
-// });
-
 module.exports = {
   joinCircle,
 }
