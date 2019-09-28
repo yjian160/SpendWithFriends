@@ -19,13 +19,17 @@ var joinCircle = function(circleName) {
     })
 }
 
-var createPerson = function(username) {
-  return knex('person').insert({username})
-    .then(data => {
-      return data;
-    })
-    .catch(err => {
-      return err;
+var createOrAddPerson = function(username) {
+  return knex('person').select('id').where('username', username)
+    .then((persons) => {
+      if (persons.length > 0) {
+        return persons[0];
+      } else {
+        return knex('person').returning('id').insert({username})
+          .then(data => {
+            return {id: data[0]};
+          })
+      }
     })
 }
 
@@ -59,4 +63,6 @@ var getTransactionsByCircleId = function(circleId) {
 
 module.exports = {
   joinCircle,
+  createOrAddPerson,
+  addPersonToCircle,
 }

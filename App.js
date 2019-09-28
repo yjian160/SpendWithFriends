@@ -1,7 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
-import RN from 'react-native';
+import { Header, StyleSheet, Text, View, TextInput, Button } from 'react-native';
 import Axios from 'axios';
+
+import CircleSelection from './components/circleSelection';
+import GroupInfo from './components/groupInfo';
+
 
 export default class App extends React.Component {
 
@@ -10,7 +13,14 @@ export default class App extends React.Component {
 
     this.state = {
       groupName: '',
+      page: 0,
     }
+  }
+
+  setPage(pageNumber) {
+    this.setState({
+      page: pageNumber
+    })
   }
 
   updateGroup(e) {
@@ -19,74 +29,45 @@ export default class App extends React.Component {
     })
   }
 
-  createGroup() {
-    Axios.post('http://ec2-13-57-24-238.us-west-1.compute.amazonaws.com:3000/joinCircle', {
-      test: 'aa'
-    })
+  joinGroup() {
+    if (this.state.groupName !== '') {
+      Axios.post('http://ec2-13-57-24-238.us-west-1.compute.amazonaws.com:3000/joinCircle', {
+        name: this.state.groupName
+      })
+        .then(response => {
+          console.log("Response:",response.data);
+          this.setState({
+            page: 1
+          });
+        })
+    }
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <View style={{flexDirection: 'row' }}>
-          <View>
-            <Text>
-              Group:{'   '}
-            </Text>
-          </View>
-          <View style={{alignSelf: 'center'}}>
-            <TextInput 
-              style={{ borderWidth: 0.5, borderColor: 'black', padding: 10}}
-              onChangeText={e=>this.updateGroup(e)}
-              placeholder="Type here to translate!"
-            />
-          </View>
-          <View>
-            <Text style={{color: 'white'}}>
-              Group:{'   '}
-            </Text>
-          </View>
+        <View style={{position: 'absolute', bottom: 0, left: 0}}>
+          <Button
+            onPress={() => {
+              this.setPage(this.state.page > 0 ? this.state.page - 1 : 0);
+            }}
+            title="Back"
+          />
         </View>
-        <View style={{flexDirection: 'row', margin: 10}}>
-          <View style={{margin: 5}}>
-            <Button
-              onPress={() => {
-                this.createGroup();
-              }}
-              title="Create"
-            />
-          </View>
-          <View style={{margin: 5}}>
-            <Button
-              style={{margin: 10}}
-              onPress={() => {
-                alert('You tapped the button!');
-              }}
-              title="Join"
-            />
-          </View>
+        <View style={{position: 'absolute', bottom: 0}}>
+          <Button
+            onPress={() => {
+              this.setPage(0);
+            }}
+            title="Home"
+          />
         </View>
+        {this.state.page === 0 ? <CircleSelection joinGroup={this.joinGroup.bind(this)} updateGroup={this.updateGroup.bind(this)}/> : <View /> }
+        {this.state.page === 1 ? <GroupInfo groupName={this.state.groupName}/> : <View /> }
       </View>
     );
   }
 }
-
-// export default function App() {
-//   return (
-//     <View style={styles.container}>
-//       <TextInput 
-//         style={{borderWidth: 0.5, borderColor: 'black', padding: 10}}
-//         placeholder="Type here to translate!"
-//       />
-//       <Button
-//         onPress={() => {
-//           alert('You tapped the button!');
-//         }}
-//         title="Press Me"
-//       />
-//     </View>
-//   );
-// }
 
 const styles = StyleSheet.create({
   container: {

@@ -14,6 +14,16 @@ app.post('/joinCircle', (req, res) => {
     });
 })
 
+app.post('/addUser', (req, res) => {
+  var username = req.body.username;
+  var circleName = req.body.circleName
+  db.createOrAddPerson(username)
+    .then(data => {
+      return db.addPersonToCircle(username, circleName)
+        .catch(res.send(data));
+    });
+})
+
 app.listen(port, () => {
   console.log(`listening on ${port}`);
 })
