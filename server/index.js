@@ -1,9 +1,17 @@
 const express = require('express');
 const app = express();
 const port = 3000;
+const db = require('../database/dbHelper')
 
-app.post('/createGroup', (req, res) => {
-  console.log('test');
+app.use(express.bodyParser());
+
+app.post('/createCircle', (req, res) => {
+  var newCircle = req.body;
+  db.joinCircle(newCircle.name)
+    .then(data => {
+      console.log("CreateCircle", data);
+      res.send(data);
+    });
 })
 
 app.listen(port, () => {

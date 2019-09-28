@@ -88,6 +88,6 @@ joinCircle('TESTCIRCLE')
 //   circle_id: 1,
 // });
 
-module.export = {
+module.exports = {
   joinCircle,
 }

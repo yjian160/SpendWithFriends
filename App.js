@@ -10,7 +10,7 @@ export default class App extends React.Component {
   }
 
   createGroup() {
-    Axios.post('http://ec2-13-57-24-238.us-west-1.compute.amazonaws.com:3000/createGroup')
+    Axios.post('http://ec2-13-57-24-238.us-west-1.compute.amazonaws.com:3000/createCircle')
   }
 
   render() {
