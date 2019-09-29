@@ -14,6 +14,15 @@ app.post('/joinCircle', (req, res) => {
     });
 })
 
+app.get('/getPersonsByCircle', (req, res) => {
+  var circleName = req.query.circleName;
+  db.getPersonsByCircle(circleName)
+    .then(data => {
+      console.log(data);
+      res.send(data);
+    });
+})
+
 app.post('/addUser', (req, res) => {
   var username = req.body.username;
   var circleName = req.body.circleName

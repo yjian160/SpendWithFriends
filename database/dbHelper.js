@@ -65,4 +65,5 @@ module.exports = {
   joinCircle,
   createOrAddPerson,
   addPersonToCircle,
+  getPersonsByCircle,
 }

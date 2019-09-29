@@ -12,6 +12,10 @@ export default class GroupInfo extends React.Component {
     }
   }
 
+  componentDidMount() {
+    
+  }
+
   setUsername(e) {
     this.setState({
       newUsername: e
@@ -29,8 +33,12 @@ export default class GroupInfo extends React.Component {
           <View style={{margin: 5}}>
             <Button
               onPress={() => {
-
-                this.props.endAddUser();
+                Axios.post('http://ec2-13-57-24-238.us-west-1.compute.amazonaws.com:3000/addUser', {
+                  username: this.state.newUsername,
+                  circleName: this.props.groupName,
+                }).then(() => {
+                  this.props.endAddUser();
+                })
               }}
               title="Add User"
             />

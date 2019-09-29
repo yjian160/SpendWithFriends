@@ -14,7 +14,7 @@ export default function CircleSelection(props) {
           <TextInput 
             style={{ borderWidth: 0.5, borderColor: 'black', padding: 10}}
             onChangeText={e=>props.updateGroup(e)}
-            placeholder="Type here to translate!"
+            placeholder="Enter group to join"
           />
         </View>
         <View>

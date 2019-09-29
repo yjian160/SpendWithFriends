@@ -2,6 +2,7 @@ import React from 'react';
 import { Modal, Picker, StyleSheet, Text, View, TextInput, Button } from 'react-native';
 
 import UserRegistration from './userReg';
+import Axios from 'axios';
 
 export default class GroupInfo extends React.Component {
 
@@ -15,7 +16,14 @@ export default class GroupInfo extends React.Component {
   }
 
   componentDidMount() {
-    
+    Axios.get('/getPersonsByCircle', {
+      params: {
+        circleName: this.props.groupName
+      }
+    })
+      .then(data => {
+        console.log(data.data);
+      })
   }
 
   startAddUser() {
@@ -62,7 +70,7 @@ export default class GroupInfo extends React.Component {
               userModelVisible : false
             })
           }}>
-            <UserRegistration endAddUser={this.endAddUser.bind(this)}/>
+            <UserRegistration groupName={this.props.groupName} endAddUser={this.endAddUser.bind(this)}/>
         </Modal>
         <Picker>
           <Picker.Item label="User1" value="user1" />
