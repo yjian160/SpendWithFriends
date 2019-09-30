@@ -36,6 +36,16 @@ export default class GroupInfo extends React.Component {
           users: currentUsers
         })
       })
+      .then(() => {
+        return Axios.get('http://ec2-13-57-24-238.us-west-1.compute.amazonaws.com:3000/getTransactionsByCircleName', {
+          params: {
+            circleName: this.props.groupName
+          }
+        })
+          .then(res => {
+            console.log(res.data);
+          })
+      })
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -53,6 +63,16 @@ export default class GroupInfo extends React.Component {
         this.setState({
           users: currentUsers
         })
+      })
+      .then(() => {
+        return Axios.get('http://ec2-13-57-24-238.us-west-1.compute.amazonaws.com:3000/getTransactionsByCircleName', {
+          params: {
+            circleName: this.props.groupName
+          }
+        })
+          .then(res => {
+            console.log(res.data);
+          })
       })
     }
   }
