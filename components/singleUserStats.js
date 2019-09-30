@@ -42,18 +42,52 @@ export default class SingleUserStats extends React.Component {
     return owedList;
   }
 
+  getTally() {
+    var oweList = this.getOwe();
+    var owedList = this.getOwed();
+    console.log(this.props.currentUser);
+    var finalList = {};
+    
+    var oweKeys = Object.keys(oweList);
+    for (var i = 0; i < oweKeys.length; i++) {
+      if (!finalList[oweKeys[i]]) {
+        finalList[oweKeys[i]] = -1 * oweList[oweKeys[i]];
+      } else {
+        finalList[oweKeys[i]] = finalList[oweKeys[i]] + -1 * oweList[oweKeys[i]];
+      }
+    }
+
+    var owedKeys = Object.keys(owedList);
+    for (var i = 0; i < owedKeys.length; i++) {
+      if (!finalList[owedKeys[i]]) {
+        finalList[owedKeys[i]] = owedList[owedKeys[i]];
+      } else {
+        finalList[owedKeys[i]] = finalList[owedKeys[i]] + owedList[owedKeys[i]];
+      }
+    }
+    console.log(this.props.currentUser);
+    console.log("OwedList:", owedList);
+    console.log("OweList:", oweList);
+    console.log('Final:', finalList)
+    return finalList;
+  }
+
 
   render() {
     return (
       <View>
-        {(Object.keys(this.getOwe()).length > 0 ? <Text>{this.props.currentUser} owes:</Text> : <Text />)}
-        {Object.keys(this.getOwe()).map(key => {
-          return (<Text key={key}>{key + '  $' + this.getOwe()[key]}</Text>);
+        <Text>{this.props.currentUser} owes:</Text>
+        {Object.keys(this.getTally()).map(key => {
+          if (this.getTally()[key] < 0) {
+            return (<Text key={key}>{key + '  $' + Math.abs(this.getTally()[key])}</Text>);
+          }
         })}
         <Text> --------------- </Text>
-        {(Object.keys(this.getOwed()).length > 0 ? <Text>owes {this.props.currentUser}:</Text> : <Text />)}
-        {Object.keys(this.getOwed()).map(key => {
-          return (<Text key={key}>{key + '  $' + this.getOwed()[key]}</Text>);
+        <Text>owes {this.props.currentUser}:</Text>
+        {Object.keys(this.getTally()).map(key => {
+          if (this.getTally()[key] > 0) {
+            return (<Text key={key}>{key + '  $' + this.getTally()[key]}</Text>);
+          }
         })}
       </View>
     );
