@@ -1,9 +1,10 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 7997,
-  "expoServerNgrokUrl": "https://bv-hb3.anonymous.spendwithfriends.exp.direct",
-  "packagerNgrokUrl": "https://packager.bv-hb3.anonymous.spendwithfriends.exp.direct",
-  "ngrokPid": 8005
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
+  "webpackServerPort": null
 }

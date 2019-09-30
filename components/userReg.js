@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal, Picker, StyleSheet, Text, View, TextInput, Button } from 'react-native';
 import Axios from 'axios';
 
-export default class GroupInfo extends React.Component {
+export default class UserReg extends React.Component {
 
   constructor(props) {
     super(props);
@@ -10,10 +10,6 @@ export default class GroupInfo extends React.Component {
     this.state = {
       newUsername: '',
     }
-  }
-
-  componentDidMount() {
-    
   }
 
   setUsername(e) {
