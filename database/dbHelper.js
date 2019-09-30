@@ -54,7 +54,14 @@ var getPersonsByCircle = function(circleName) {
 
 var createTransaction = function(transaction, participants) {
   return knex('transaction').insert(transaction)
-  .then(data => {
+    .then(data => {
+    var personTransactions = [];
+    for (var i = 0; i < participants.length; i++) {
+      personTransactions.push({
+        person_id: participants[i],
+        transaction_id: transaction.transaction_id
+      })
+    }
     return knex('person_transaction').insert(participants);
   });
 }

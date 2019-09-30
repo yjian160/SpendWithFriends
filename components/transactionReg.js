@@ -72,9 +72,9 @@ export default class TransactionReg extends React.Component {
       participants: participantKeys
     }
 
-    Axios.post('http://ec2-13-57-24-238.us-west-1.compute.amazonaws.com:3000/getPersonsByCircle', newTransaction)
+    Axios.post('http://ec2-13-57-24-238.us-west-1.compute.amazonaws.com:3000/addTransaction', newTransaction)
       .then(res => {
-        console.log(res);
+        this.props.endAddTransaction();
       });
   }
 
