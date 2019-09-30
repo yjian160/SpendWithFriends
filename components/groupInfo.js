@@ -125,7 +125,7 @@ export default class GroupInfo extends React.Component {
   render() {
     return (
       <View>
-        <Text>{this.props.groupName}</Text>
+        <Text>Group: {this.props.groupName}</Text>
         <View style={{flexDirection: 'row', margin: 10}}>
           <View style={{margin: 5}}>
             <Button
