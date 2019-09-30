@@ -43,7 +43,9 @@ export default class GroupInfo extends React.Component {
           }
         })
           .then(res => {
-            console.log(res.data);
+            this.setState({
+              transactions: res.data
+            })
           })
       })
   }
@@ -71,7 +73,9 @@ export default class GroupInfo extends React.Component {
           }
         })
           .then(res => {
-            console.log(res.data);
+            this.setState({
+              transactions: res.data
+            })
           })
       })
     }
@@ -101,13 +105,13 @@ export default class GroupInfo extends React.Component {
     })
   }
 
-  startAllTransactionsModel() {
+  startAllTransactions() {
     this.setState({
       allTransactionsModelVisible: true
     })
   }
 
-  endAllTransactionsModel() {
+  endAllTransactions() {
     this.setState({
       allTransactionsModelVisible: false
     })
@@ -166,7 +170,7 @@ export default class GroupInfo extends React.Component {
               allTransactionsModelVisible : false
             })
           }}>
-            <AllTransactions users={this.state.users} groupId={this.props.groupId} groupName={this.props.groupName} endAllTransactionsModel={this.endAllTransactionsModel.bind(this)}/>
+            <AllTransactions transactions={this.state.transactions} endAllTransactions={this.endAllTransactions.bind(this)}/>
         </Modal>
         <Picker
           selectedValue={this.state.currentUser}
@@ -180,7 +184,7 @@ export default class GroupInfo extends React.Component {
         <View style={{margin: 5}}>
           <Button
             onPress={() => {
-              
+              this.startAllTransactions()
             }}
             title="All Transactions"
           />

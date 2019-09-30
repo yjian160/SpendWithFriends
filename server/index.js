@@ -27,7 +27,7 @@ app.get('/getTransactionsByCircleName', (req, res) => {
   db.getTransactionsByCircleName(circleName)
     .then(data => {
       console.log(data);
-      res.send(data);
+      res.json(data);
     });
 })
 
