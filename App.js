@@ -13,6 +13,7 @@ export default class App extends React.Component {
 
     this.state = {
       groupName: '',
+      groupId: -1,
       page: 0,
     }
   }
@@ -37,6 +38,7 @@ export default class App extends React.Component {
         .then(response => {
           console.log("Response:",response.data);
           this.setState({
+            groupId: response.data[0].id,
             page: 1
           });
         })
@@ -63,7 +65,7 @@ export default class App extends React.Component {
           />
         </View>
         {this.state.page === 0 ? <CircleSelection joinGroup={this.joinGroup.bind(this)} updateGroup={this.updateGroup.bind(this)}/> : <View /> }
-        {this.state.page === 1 ? <GroupInfo groupName={this.state.groupName}/> : <View /> }
+        {this.state.page === 1 ? <GroupInfo groupName={this.state.groupName} groupId={this.state.groupId}/> : <View /> }
       </View>
     );
   }

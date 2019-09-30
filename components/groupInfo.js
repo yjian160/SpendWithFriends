@@ -14,6 +14,7 @@ export default class GroupInfo extends React.Component {
       users: [],
       userModelVisible: false,
       transactionModelVisible: false,
+      currentUser: '',
     }
   }
 
@@ -26,7 +27,7 @@ export default class GroupInfo extends React.Component {
       .then(res => {
         var currentUsers = [];
         for (var i = 0; i < res.data.length; i++) {
-          currentUsers.push(res.data[i]['username']);
+          currentUsers.push(res.data[i]);
         }
         this.setState({
           users: currentUsers
@@ -44,7 +45,7 @@ export default class GroupInfo extends React.Component {
       .then(res => {
         var currentUsers = [];
         for (var i = 0; i < res.data.length; i++) {
-          currentUsers.push(res.data[i]['username']);
+          currentUsers.push(res.data[i]);
         }
         this.setState({
           users: currentUsers
@@ -119,21 +120,25 @@ export default class GroupInfo extends React.Component {
               transactionModelVisible : false
             })
           }}>
-            <TransactionRegistration users={this.state.users} groupName={this.props.groupName} endAddTransaction={this.endAddTransaction.bind(this)}/>
+            <TransactionRegistration users={this.state.users} groupId={this.props.groupId} groupName={this.props.groupName} endAddTransaction={this.endAddTransaction.bind(this)}/>
         </Modal>
-        <Picker>
-          {this.state.users.map(username => {
-            return (<Picker.Item key={username} label={username} value={username} />);
+        <Picker
+          selectedValue={this.state.currentUser}
+          onValueChange={(itemValue, itemIndex) =>
+            this.setState({currentUser: itemValue})
+          }>
+          {this.state.users.map(user => {
+            return (<Picker.Item key={user.username} label={user.username} value={user.username} />);
           })}
         </Picker>
         <View style={{margin: 5}}>
-            <Button
-              onPress={() => {
-                
-              }}
-              title="All Transactions"
-            />
-          </View>
+          <Button
+            onPress={() => {
+              
+            }}
+            title="All Transactions"
+          />
+        </View>
       </View>
     );
   }

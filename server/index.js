@@ -9,7 +9,6 @@ app.post('/joinCircle', (req, res) => {
   var newCircle = req.body;
   db.createOrGetCircle(newCircle.name)
     .then(data => {
-      console.log("CreateCircle", data);
       res.send(data);
     });
 })

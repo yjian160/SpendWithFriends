@@ -14,6 +14,22 @@ export default class Checkbox extends React.Component {
   }
 
   press() {
+    console.log({
+      id: this.props.id,
+      username: this.props.title
+    });
+    if (!this.state.checked) {
+      this.props.addParticipant({
+        id: this.props.id,
+        username: this.props.title
+      });
+    } else {
+      this.props.removeParticipant({
+        id: this.props.id,
+        username: this.props.title
+      });
+    }
+
     this.setState({
       checked: !this.state.checked
     })
