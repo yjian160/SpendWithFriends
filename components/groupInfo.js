@@ -3,6 +3,7 @@ import { Modal, Picker, StyleSheet, Text, View, TextInput, Button } from 'react-
 
 import UserRegistration from './userReg';
 import TransactionRegistration from './transactionReg';
+import AllTransactions from './allTransactions'
 import Axios from 'axios';
 
 export default class GroupInfo extends React.Component {
@@ -14,7 +15,9 @@ export default class GroupInfo extends React.Component {
       users: [],
       userModelVisible: false,
       transactionModelVisible: false,
+      allTransactionsModelVisible: false,
       currentUser: '',
+      transactions: [],
     }
   }
 
@@ -78,6 +81,18 @@ export default class GroupInfo extends React.Component {
     })
   }
 
+  startAllTransactionsModel() {
+    this.setState({
+      allTransactionsModelVisible: true
+    })
+  }
+
+  endAllTransactionsModel() {
+    this.setState({
+      allTransactionsModelVisible: false
+    })
+  }
+
   render() {
     return (
       <View>
@@ -121,6 +136,17 @@ export default class GroupInfo extends React.Component {
             })
           }}>
             <TransactionRegistration users={this.state.users} groupId={this.props.groupId} groupName={this.props.groupName} endAddTransaction={this.endAddTransaction.bind(this)}/>
+        </Modal>
+        <Modal
+          animationType="slide"
+          transparent={false}
+          visible={this.state.allTransactionsModelVisible}
+          onRequestClose={() => {
+            this.setState({
+              allTransactionsModelVisible : false
+            })
+          }}>
+            <AllTransactions users={this.state.users} groupId={this.props.groupId} groupName={this.props.groupName} endAllTransactionsModel={this.endAllTransactionsModel.bind(this)}/>
         </Modal>
         <Picker
           selectedValue={this.state.currentUser}

@@ -70,7 +70,7 @@ var getTransactionsByCircleName = function(circleName) {
   return knex('transaction')
     .innerJoin('circle', 'transaction.circle_id', 'circle.id')
     .innerJoin('person_transaction', 'transaction.id', 'person_transaction.transaction_id')
-    .innerJoin('person', 'person.id', 'person_tranaction.person_id')
+    .innerJoin('person', 'person.id', 'person_transaction.person_id')
     .innerJoin('person as payer', 'transaction.payer_id', 'person.id')
     .select().where('circle.name', circleName);
 };
