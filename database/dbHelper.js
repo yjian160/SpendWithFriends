@@ -62,7 +62,7 @@ var createTransaction = function(transaction, participants) {
         transaction_id: transaction.transaction_id
       })
     }
-    return knex('person_transaction').insert(participants);
+    return knex('person_transaction').insert(personTransactions);
   });
 }
 
