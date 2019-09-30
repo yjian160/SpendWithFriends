@@ -17,7 +17,6 @@ app.get('/getPersonsByCircle', (req, res) => {
   var circleName = req.query.circleName;
   db.getPersonsByCircle(circleName)
     .then(data => {
-      console.log(data);
       res.send(data);
     });
 })
@@ -26,7 +25,6 @@ app.get('/getTransactionsByCircleName', (req, res) => {
   var circleName = req.query.circleName;
   db.getTransactionsByCircleName(circleName)
     .then(data => {
-      console.log(data);
       res.json(data);
     });
 })
@@ -35,7 +33,6 @@ app.get('/getParticipantsByTransactionId', (req, res) => {
   var transactionId = req.query.transactionId;
   db.getParticipantsByTransactionId(transactionId)
     .then(data => {
-      console.log(data);
       res.send(data);
     });
 })

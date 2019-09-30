@@ -68,6 +68,7 @@ export default class TransactionReg extends React.Component {
         total_amount: this.state.amount,
         payer_id: payer_id,
         payer_name: this.state.payer,
+        participant_count: participantKeys.length,
         circle_id: this.props.groupId
       },
       participants: participantKeys

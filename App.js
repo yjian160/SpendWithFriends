@@ -36,7 +36,6 @@ export default class App extends React.Component {
         name: this.state.groupName
       })
         .then(response => {
-          console.log("Response:",response.data);
           this.setState({
             groupId: response.data[0].id,
             page: 1

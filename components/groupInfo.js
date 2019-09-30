@@ -4,6 +4,7 @@ import { Modal, Picker, StyleSheet, Text, View, TextInput, Button } from 'react-
 import UserRegistration from './userReg';
 import TransactionRegistration from './transactionReg';
 import AllTransactions from './allTransactions'
+import SingleUserStats from './singleUserStats'
 import Axios from 'axios';
 
 export default class GroupInfo extends React.Component {
@@ -33,7 +34,8 @@ export default class GroupInfo extends React.Component {
           currentUsers.push(res.data[i]);
         }
         this.setState({
-          users: currentUsers
+          users: currentUsers,
+          currentUsers: (this.state.currentUser === '' && currentUsers.length && currentUsers.length > 0  ? currentUsers[0].username : this.state.currentUser)
         })
       })
       .then(() => {
@@ -51,7 +53,9 @@ export default class GroupInfo extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.userModelVisible !== this.state.userModelVisible) {
+    if (prevState.userModelVisible !== this.state.userModelVisible
+      || prevState.allTransactionsModelVisible !== this.state.allTransactionsModelVisible
+      || prevState.transactionModelVisible !== this.state.transactionModelVisible) {
       Axios.get('http://ec2-13-57-24-238.us-west-1.compute.amazonaws.com:3000/getPersonsByCircle', {
       params: {
         circleName: this.props.groupName
@@ -63,7 +67,8 @@ export default class GroupInfo extends React.Component {
           currentUsers.push(res.data[i]);
         }
         this.setState({
-          users: currentUsers
+          users: currentUsers,
+          currentUsers: (this.state.currentUser === '' && currentUsers.length && currentUsers.length > 0 ? currentUsers[0].username : this.state.currentUser)
         })
       })
       .then(() => {
@@ -133,7 +138,11 @@ export default class GroupInfo extends React.Component {
           <View style={{margin: 5}}>
             <Button
               onPress={() => {
-                this.startAddTransaction();
+                if (this.state.currentUser !== '') {
+                  this.startAddTransaction();
+                } else {
+                  alert('add a user first');
+                }
               }}
               title="+ Transaction"
             />
@@ -181,6 +190,7 @@ export default class GroupInfo extends React.Component {
             return (<Picker.Item key={user.username} label={user.username} value={user.username} />);
           })}
         </Picker>
+        <SingleUserStats transactions={this.state.transactions} currentUser={this.state.currentUser} />
         <View style={{margin: 5}}>
           <Button
             onPress={() => {

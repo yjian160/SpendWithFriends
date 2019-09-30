@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Picker, StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import { Modal, Picker, StyleSheet, Text, View, TextInput, Button, ScrollView } from 'react-native';
 
 export default class AllTransactions extends React.Component {
 
@@ -9,12 +9,13 @@ export default class AllTransactions extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        {this.props.transactions.map(transaction => {
-          console.log(transaction)
-          return (<Text>{transaction}</Text>)
-        })}
-      </View>
+      <ScrollView>
+        <View style={styles.container}>
+          {this.props.transactions.map(transaction => {
+            return (<Text key={transaction.transaction_id + '-' + transaction.username}>{JSON.stringify(transaction)}</Text>)
+          })}
+        </View>
+      </ScrollView>
     );
   }
 }

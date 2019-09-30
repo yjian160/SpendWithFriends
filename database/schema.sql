@@ -29,7 +29,8 @@ CREATE TABLE transaction (
   description VARCHAR(256),
   total_amount NUMERIC(9,2),
   payer_id INTEGER,
-  payer_name VARCHAR(64) UNIQUE
+  payer_name VARCHAR(64),
+  participant_count INTEGER,
   circle_id INTEGER,
   category_id INTEGER,
   FOREIGN KEY (payer_id) REFERENCES person(id) ON DELETE CASCADE,
