@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal, Picker, StyleSheet, Text, View, TextInput, Button } from 'react-native';
 import Axios from 'axios';
+import { Table, Row, Rows } from 'react-native-table-component';
 
 export default class SingleUserStats extends React.Component {
 
@@ -45,7 +46,6 @@ export default class SingleUserStats extends React.Component {
   getTally() {
     var oweList = this.getOwe();
     var owedList = this.getOwed();
-    console.log(this.props.currentUser);
     var finalList = {};
     
     var oweKeys = Object.keys(oweList);
@@ -65,10 +65,6 @@ export default class SingleUserStats extends React.Component {
         finalList[owedKeys[i]] = finalList[owedKeys[i]] + owedList[owedKeys[i]];
       }
     }
-    console.log(this.props.currentUser);
-    console.log("OwedList:", owedList);
-    console.log("OweList:", oweList);
-    console.log('Final:', finalList)
     return finalList;
   }
 
@@ -77,18 +73,38 @@ export default class SingleUserStats extends React.Component {
     return (
       <View>
         <Text>{this.props.currentUser} owes:</Text>
-        {Object.keys(this.getTally()).map(key => {
-          if (this.getTally()[key] < 0) {
-            return (<Text key={key}>{key + '  $' + Math.abs(this.getTally()[key])}</Text>);
-          }
-        })}
-        <Text> --------------- </Text>
+        <Table borderStyle={{borderWidth: 1, borderColor: 'black'}}>
+          {Object.keys(this.getTally()).map(key => {
+
+            if (this.getTally()[key] < 0) {
+              var number = this.getTally()[key];
+              number = number * 100;
+              number = Math.floor(number);
+              number = number/100;
+              return (<Row key={key+'-a'} data={[key, '$'+Math.abs(number)]}></Row>);
+            } else {
+              return (<Row></Row>);
+            }
+            //<Text key={key}>{key + '  $' + number}</Text>
+          })}
+        </Table>
+        <Text></Text>
         <Text>owes {this.props.currentUser}:</Text>
-        {Object.keys(this.getTally()).map(key => {
-          if (this.getTally()[key] > 0) {
-            return (<Text key={key}>{key + '  $' + this.getTally()[key]}</Text>);
-          }
-        })}
+        <Table borderStyle={{borderWidth: 1, borderColor: 'black'}}>
+          {Object.keys(this.getTally()).map(key => {
+
+            if (this.getTally()[key] > 0) {
+              var number = this.getTally()[key];
+              number = number * 100;
+              number = Math.floor(number);
+              number = number/100;
+              return (<Row key={key+'-b'} data={[key, '$'+number]}></Row>);
+            } else {
+              return (<Row></Row>);
+            }
+            //<Text key={key}>{key + '  $' + number}</Text>
+          })}
+        </Table>
       </View>
     );
   }
